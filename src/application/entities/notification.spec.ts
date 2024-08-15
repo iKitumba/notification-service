@@ -7,7 +7,6 @@ describe('Notification', () => {
       content: new Content('Você recebeu uma nova solicitação de amizade'),
       category: 'social',
       recipientId: 'id-do-recipient',
-      readAt: null,
     });
 
     expect(notification).toBeTruthy();
