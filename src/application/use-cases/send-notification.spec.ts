@@ -6,7 +6,7 @@ describe('Send notification', () => {
     const notificationRepository = new InMemoryNotificationRepository();
     const sendNotification = new SendNotification(notificationRepository);
 
-    await sendNotification.execute({
+    const { notification } = await sendNotification.execute({
       category: 'social',
       content: 'Alberto Kitumba aceitou o teu pedido de namoro',
       recipientId: 'exemple-recipient-id',
@@ -15,5 +15,6 @@ describe('Send notification', () => {
     console.log(notificationRepository.notifications);
 
     expect(notificationRepository.notifications).toHaveLength(1);
+    expect(notificationRepository.notifications[0]).toEqual(notification);
   });
 });
