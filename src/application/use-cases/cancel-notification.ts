@@ -16,10 +16,15 @@ export class CancelNotification {
     request: CancelNotificationRequest,
   ): Promise<CancelNotificationResponse> {
     const { notificationId } = request;
-    const notification = this.notificationRepository.findById(notificationId);
+    const notification =
+      await this.notificationRepository.findById(notificationId);
 
     if (!notification) {
       throw new NotificationNotFound();
     }
+
+    notification.cancel();
+
+    await this.notificationRepository.save(notification);
   }
 }
