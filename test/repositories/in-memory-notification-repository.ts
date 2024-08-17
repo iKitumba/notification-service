@@ -5,7 +5,12 @@ export class InMemoryNotificationRepository implements NotificationRepository {
   public notifications = [] as Notification[];
 
   async findById(notificationId: string): Promise<Notification | null> {
-    throw new Error('Method not implemented.');
+    const notification =
+      this.notifications.find(
+        (notification) => notification.id === notificationId,
+      ) || null;
+
+    return notification;
   }
 
   async create(notification: Notification) {
@@ -13,6 +18,12 @@ export class InMemoryNotificationRepository implements NotificationRepository {
   }
 
   async save(notification: Notification): Promise<void> {
-    throw new Error('Method not implemented.');
+    const notificationIndex = this.notifications.findIndex(
+      (item) => item.id === notification.id,
+    );
+
+    if (notificationIndex >= 0) {
+      this.notifications[notificationIndex] = notification;
+    }
   }
 }
